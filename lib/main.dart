@@ -20,9 +20,20 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatelessWidget {
-  final controller = TextEditingController(text: 'Text Field');
+class MyHomePage extends StatefulWidget {
   MyHomePage({Key? key}) : super(key: key);
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  final controller = TextEditingController(text: 'Text Field');
+  bool? _check1Value = false;
+  bool? _check2Value = true;
+  int _selectedRadio = 1;
+  bool _switchValue = false;
+  double _sliderValue = 0.25;
 
   @override
   Widget build(BuildContext context) {
@@ -41,22 +52,46 @@ class MyHomePage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Checkbox(value: false, onChanged: (bool? value) {}),
-                Checkbox(value: true, onChanged: (bool? value) {}),
+                Checkbox(
+                    value: _check1Value,
+                    onChanged: (bool? value) =>
+                        setState(() => _check1Value = value)),
+                Checkbox(
+                    value: _check2Value,
+                    onChanged: (bool? value) =>
+                        setState(() => _check2Value = value)),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Radio<int>(value: 0, groupValue: 1, onChanged: (int? value) {}),
-                Radio<int>(value: 1, groupValue: 1, onChanged: (int? value) {}),
-                Radio<int>(value: 2, groupValue: 1, onChanged: (int? value) {}),
+                Radio<int>(
+                    value: 0,
+                    groupValue: _selectedRadio,
+                    onChanged: (int? value) =>
+                        setState(() => _selectedRadio = 0)),
+                Radio<int>(
+                    value: 1,
+                    groupValue: _selectedRadio,
+                    onChanged: (int? value) =>
+                        setState(() => _selectedRadio = 1)),
+                Radio<int>(
+                    value: 2,
+                    groupValue: _selectedRadio,
+                    onChanged: (int? value) =>
+                        setState(() => _selectedRadio = 2)),
               ],
             ),
-            Switch(value: false, onChanged: (bool? value) {}),
+            Switch(
+                value: _switchValue,
+                onChanged: (bool value) =>
+                    setState(() => _switchValue = value)),
             SizedBox(
               width: 200,
-              child: Slider(value: 0.25, onChanged: (double value) {}),
+              child: Slider(
+                  value: _sliderValue,
+                  onChanged: (double value) =>
+                      setState(() => _sliderValue = value)),
             ),
             SizedBox(
               width: 200,
